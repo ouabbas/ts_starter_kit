@@ -1,11 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import userModel from '~models/users.model';
-import waitingListRankModel from '~models/waiting-list-rank.model';
+import { UserModel } from '~models';
 
 class IndexController {
   public index = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await userModel.findOne().then(user => res.json({ user }));
+      await UserModel.findOne().then(user => res.json({ user }));
       res.json({});
     } catch (error) {
       next(error);
@@ -13,8 +12,7 @@ class IndexController {
   };
   public cleanAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await userModel.deleteMany({});
-      // await waitingListRankModel.deleteMany({});
+      await UserModel.deleteMany({});
 
       res.json({});
     } catch (error) {
